@@ -1,7 +1,8 @@
-# Censo_COVID19
+# Censo COVID19 
 Censo de COVID-19 Programa en Python utilizando de base de datos MongoDB
 
-# IDE de Progrmación 
+# Herramientas
+
 ## Sublime Text
 https://www.sublimetext.com/
 
