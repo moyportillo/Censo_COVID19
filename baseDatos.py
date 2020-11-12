@@ -14,7 +14,7 @@ miTabla = database["persona"]
 
 #Funcion para insertar datos en la tabla
 
-print(miTabla.count_documents({}))
+#print(miTabla.count_documents({}))
 
 for documento in miTabla.find({}):
 	print(documento)

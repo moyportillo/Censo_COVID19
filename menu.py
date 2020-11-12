@@ -13,7 +13,7 @@ raiz.title("Censo 2020 - Combatiendo el Covid19 Juntos")
 raiz.resizable(0,0)
 
 #Aqui cambiamos el tamanio de la ventana ancho por alto
-raiz.geometry("650x720")
+raiz.geometry("850x720")
 
 #Crear el frame
 miFrame=Frame(raiz)
@@ -36,7 +36,7 @@ alto=5
 #Funcion para Agragar Censo
 def Agregar_Censo():
 	miFrame = Toplevel(raiz)
-	miFrame.geometry("550x500")
+	miFrame.geometry("750x600")
 	miFrame.resizable(0,0)
 	Label(miFrame, image=miImagen).grid(row=0, column=0)
 	Label(miFrame, text="Nuevo Censo", font=("Comic Sans MS", 26)).grid(row=0, column=1)
@@ -106,7 +106,7 @@ def Agregar_Censo():
 #Funcion para buscar censo
 def Buscar_Censo():
 	miFrame = Toplevel(raiz)
-	miFrame.geometry("550x500")
+	miFrame.geometry("750x600")
 	miFrame.resizable(0,0)
 	Label(miFrame, image=miImagen).grid(row=0, column=0)
 	Label(miFrame, text="Buscar Censo", font=("Comic Sans MS", 26)).grid(row=0, column=1)
@@ -145,7 +145,7 @@ def Buscar_Censo():
 #Funcion para Modificar Censo
 def Modificar_Censo():
 	miFrame = Toplevel(raiz)
-	miFrame.geometry("600x600")
+	miFrame.geometry("950x700")
 	miFrame.resizable(0,0)
 
 	Label(miFrame, image=miImagen).grid(row=0, column=0)
@@ -224,7 +224,7 @@ def Modificar_Censo():
 
 def eliminar_data():
 	miFrame = Toplevel(raiz)
-	miFrame.geometry("650x200")
+	miFrame.geometry("850x200")
 	miFrame.resizable(0,0)
 
 	Label(miFrame, image=miImagen).grid(row=0, column=0)
