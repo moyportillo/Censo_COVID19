@@ -3,6 +3,14 @@ Censo de COVID-19 Programa en Python utilizando de base de datos MongoDB
 
 # Herramientas
 
+## Python - Lenguaje de Programación
+https://www.python.org/
+
+El programa fue hecho con el lenguaje de programación Python
+Realemnte un lenguaje muyt excelente, sencillo y verdaderamente
+rapido, algo que ayuda bastante al programador a poder comprender mejor
+su codigo y otros codigos.
+
 ## Sublime Text
 https://www.sublimetext.com/
 
