@@ -93,9 +93,10 @@ def Agregar_Censo():
 		if identidad.get() != "":
 			vector = {"identidad": identidad.get(), "nombre": nombre.get(), "direccion": direccion.get(), "correo": correo.get(), "telefono": telefono.get(), "sintomas": resp, "triaje": cbTriaje.get()}
 			insertar_Datos(vector)
+			messagebox.showinfo(title="Registro", message="Guadordado Exitosamente en Registro")
 			miFrame.destroy()
 		else:
-			Label(miFrame, text="No se pudo Ingresar la informacion por falta de Datos", font=("Comic Sans MS", 12)).grid(row=11, column=1, padx=5)
+			messagebox.showerror(title="Registro", message="No se pudo Ingresar la informacion por falta de Datos")
 	#botones
 	enviar = Button(miFrame, text="Enviar",fg='black', bg='#DCEDC8', font=("Comic Sans MS", 18), width=10, command=press_Send).grid(row=10, column=1, padx=5, pady=25)
 
@@ -136,9 +137,9 @@ def Buscar_Censo():
 
 				Button(miFrame, text="Menu",fg='black', bg='#B3E5FC', font=("Comic Sans MS", 18), width=10, command=miFrame.destroy).grid(row=9, column=1, padx=5, pady=25)
 			else:
-			 	Label(miFrame, text="Error: Registro No encontrado", fg="red", font=("Comic Sans MS", 14, 'bold')).grid(row=3, column=1, padx=5)
+				messagebox.showerror(title="Registro", message="Registro No encontrado")
 		else:
-			Label(miFrame, text="Error: Campo vacio", fg="red", font=("Comic Sans MS", 14, 'bold')).grid(row=3, column=1, padx=5)
+			messagebox.showerror(title="Registro", message="Campo vacio")
 
 	Button(miFrame, text="Buscar",fg='black', bg='#B3E5FC', font=("Comic Sans MS", 18), width=10, command=press_Seach).grid(row=1, column=2, padx=5, pady=25)
 
@@ -211,13 +212,15 @@ def Modificar_Censo():
 				def modificar_Data():
 					vector = {"identidad": modificar.get(), "nombre": nombre.get(), "direccion": direccion.get(), "correo": correo.get(), "telefono": telefono.get(), "sintomas": resp, "triaje": cbTriaje.get()}
 					actualizar_Datos(modificar.get(), vector)
+					messagebox.showinfo(title="Registro", message="Modificado Exitosamente del Registro")
 					miFrame.destroy()
 
 				btnModificar = Button(miFrame, text="modificar",fg='black', bg='#FFE0B2', font=("Comic Sans MS", 18), width=10, command=modificar_Data).grid(row=12, column=1, padx=1, pady=25)
 			else:
+				messagebox.showerror(title="Registro", message="No se encontro informacion en el Registro")
 				modificar.insert(0,"")
 		else:
-			Label(miFrame, text="Error: Campo vacio", fg="red", font=("Comic Sans MS", 14, 'bold')).grid(row=3, column=1, padx=5)
+			messagebox.showerror(title="Registro", message="Campo vacio")
 
 
 	btnBuscar = Button(miFrame, text="Buscar",fg='black', bg='#FFE0B2', font=("Comic Sans MS", 18), width=10, command=mostrar_Datos).grid(row=1, column=2, padx=1, pady=25)
@@ -240,6 +243,7 @@ def eliminar_data():
 	def delete_Datos_Censo():
 		if eliminar.get() != "" and buscar_Dato(eliminar.get()) != None:
 			eliminar_Datos(eliminar.get())
+			messagebox.showinfo(title="Eliminar Registro", message="Eliminado Exitosamente de Registro")
 			miFrame.destroy()
 		else:
 			Label(miFrame, text="Error: Datos no encontrados", fg="red", font=("Comic Sans MS", 14, 'bold')).grid(row=3, column=1, padx=5)

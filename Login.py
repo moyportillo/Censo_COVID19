@@ -1,5 +1,8 @@
 from tkinter import * 
+from tkinter import messagebox
 import os
+from BaseLogin import insertar_Datos, buscar_usuario
+
 
 #Aquí se crea la ventana principal.
 def v_inicio():
@@ -40,7 +43,18 @@ def registro():
     entradaContrasena = Entry(ventanaRegistro, textvariable=contrasena, show='*') #ESPACIO PARA INTRODUCIR LA CONTRASEÑA.
     entradaContrasena.pack()
     Label(ventanaRegistro, text="").pack()
-    Button(ventanaRegistro, text="Registrarse", width=10, height=1, bg="LightGreen", command = registroUsuario).pack() #Este botón se dirigira a la funcion registroUsuario
+
+    def agregar_Usuario():
+        if entradaNombre.get()!="" and entradaContrasena.get()!="":
+            vector = {"usuario": entradaNombre.get(), "contra": entradaContrasena.get()}
+            insertar_Datos(vector)
+            messagebox.showinfo(title="Registro", message="Guadordado Exitosamente en Registro")
+            ventanaRegistro.destroy()
+        else:
+            messagebox.showerror(title="Registro", message="Falta de informacion en Registro")
+            ventanaRegistro.destroy()
+
+    Button(ventanaRegistro, text="Registrarse", width=10, height=1, bg="LightGreen", command = agregar_Usuario).pack() #Este botón se dirigira a la funcion registroUsuario
 
 #Aquí creamos Ventana de Login
 def login():
@@ -67,75 +81,19 @@ def login():
     entLoginContra = Entry(ventanaLogin, textvariable= verificarContra, show= '*')
     entLoginContra.pack()
     Label(ventanaLogin, text="").pack()
-    Button(ventanaLogin, text="Ingresar", width=10, height=1, command = verificarLogin).pack()
-
-#Aquí creamos ventana de verificación de Login
-def verificarLogin():
-    usuario1 = verificarUsuario.get()
-    contrasena1 = verificarContra.get()
-    entLoginUsuario.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Nombre usuario *" AL MOSTRAR NUEVA VENTANA.
-    entLoginContra.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Contraseña *" AL MOSTRAR NUEVA VENTANA.
- 
-    lstArchivos = os.listdir() #GENERA LISTA DE ARCHIVOS UBICADOS EN EL DIRECTORIO.
-    #SI EL NOMBRE SE ENCUENTRA EN LA LISTA DE ARCHIVOS..
-    if usuario1 in lstArchivos:
-        archivo1 = open(usuario1, "r") #APERTURA DE ARCHIVO EN MODO LECTURA
-        verifica = archivo1.read().splitlines() #LECTURA DEL ARCHIVO QUE CONTIENE EL nombre Y contraseña.
-        #SI LA CONTRASEÑA INTRODUCIDA SE ENCUENTRA EN EL ARCHIVO...
-        if clave1 in verifica:
-            exitoLogin() #...EJECUTAR FUNCIÓN "exito_login()"
-        #SI LA CONTRASEÑA NO SE ENCUENTRA EN EL ARCHIVO....
+    def verificacion_Login():
+        usr = buscar_usuario(entLoginUsuario.get())
+        if  usr != None:
+            if usr["contra"] == entLoginContra.get():
+                ventanaLogin.destroy()
+                ventanaPrincipal.destroy()
+                os.system('python menu.py')
+            else:
+                messagebox.showerror(title="Registro", message="Error en ingresar a la sesion")
+                ventanaLogin.destroy()
         else:
-            noContrasena() #...EJECUTAR "no_clave()"
-    #SI EL NOMBRE INTRODUCIDO NO SE ENCUENTRA EN EL DIRECTORIO...
-    else:
-        noUsuario() #..EJECUTA "no_usuario()".    
-
-#---------------------------------------------------------------------------------
-#Ventana de Login finalizado Exitosamente
-def exitoLogin():
-    global ventanaExito
-    ventanaExito = Toplevel(ventanaLogin)
-    ventanaExito.title("Exito")
-    ventanaExito.geometry("150x150")
-    Label(ventanaExito, text="Login finalizado exitosamente.").pack()
-    Button(ventanaExito, text="OK", command=ventanaExito.destroy()).pack() #.destroy() Cierre de Ventana
-
-#---------------------------------------------------------------------------------
-#VENTANA DE "Contraseña incorrecta". 
-def noContrasena():
-    global ventanaNoContrasena
-    ventanaNoContrasena = Toplevel(ventanaLogin)
-    ventanaNoContrasena.title("¡ERROR!")
-    ventanaNoContrasena.geometry("150x150")
-    Label(ventanaNoContrasena, text = "Contraseña inválida.").pack()
-    Button(ventanaNoContrasena, text="OK", command = ventanaNoContrasena.destroy()).pack() #.destroy() Cierre de Ventana
-#---------------------------------------------------------------------------------
-#VENTANA DE "Usuario no encontrado".
- 
-def noUsuario():
-    global ventanaNoUsuario
-    ventananoUsuario = Toplevel(ventanaLogin)
-    ventananoUsuario.title("¡ERROR!")
-    ventananoUsuario.geometry("150x150")
-    Label(ventananoUsuario, text="Usuario no encontrado").pack()
-    Button(ventananoUsuario, text="OK", command = ventanaNoUsuario.destroy()).pack() #.destroy() Cierre de Ventana
-
-#REGISTRO USUARIO
-def registroUsuario():
- 
-    usuarioInfo = nombreUsuario.get()
-    contrasenaInfo = contrasena.get()
- 
-    file = open(usuario_info, "w") #CREACION DE ARCHIVO CON "nombre" y "clave"
-    file.write(usuarioInfo + "\n")
-    file.write(contrasenaInfo)
-    file.close()
- 
-    entradaNombre.delete(0, END)
-    entradaContrasena.delete(0, END)
- 
-    Label(ventanaRegistro, text="Registro completado con éxito", fg="green", font=("Microsft Sans Serif", 12)).pack()
- 
-#EJECUCIÓN DE LA VENTANA DE INICIO. 
+            messagebox.showerror(title="Registro", message="Error en ingresar a la sesion")
+            ventanaLogin.destroy()
+            
+    Button(ventanaLogin, text="Ingresar", width=10, height=1, command = verificacion_Login).pack()
 v_inicio()
